@@ -65,9 +65,10 @@ describe('FC', () => {
 
 describe('forwardRef', () => {
   it('should allow not setting the second generic param', () => {
-    const Comp = forwardRef<'div'>(() => <div />)
-
-    Comp({title: 'string'})
+    forwardRef<'div'>((props, _) => {
+      props.title as string
+      return <div />
+    })
   })
 
   it('should combine props and HTML attributes', () => {
@@ -76,9 +77,12 @@ describe('forwardRef', () => {
       second: string
     }
 
-    const Comp = forwardRef<'div', Props>(() => <div />)
-
-    Comp({first: 'string', second: 'string', title: 'string'})
+    forwardRef<'div', Props>((props, _) => {
+      props.title as string
+      props.first as string
+      props.second as string
+      return <div />
+    })
   })
 
   it('should combine accept given props type over the elements attributes if there is a conflicts', () => {
@@ -86,9 +90,10 @@ describe('forwardRef', () => {
       title: number
     }
 
-    const Comp = forwardRef<'div', Props>(() => <div />)
-
-    Comp({title: 0})
+    forwardRef<'div', Props>((props, _) => {
+      props.title as number
+      return <div />
+    })
   })
 })
 
@@ -140,8 +145,8 @@ describe('forwardProps', () => {
       second: string
     }
     const props: Props = {
-      first: 'vaule',
-      second: 'vaule',
+      first: 'value',
+      second: 'value',
     }
 
     const cleanedProps: Omit<Props, 'first'> = forwardProps(props, 'first')
