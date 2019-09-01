@@ -1,0 +1,56 @@
+{
+  "name": "react-forward-props",
+  "version": "1.0.0",
+  "description": "Easily have your custom React components forward their props to a child",
+  "repository": "https://github.com/jacehensley/react-forward-props",
+  "main": "dist/index.js",
+  "module": "dist/react-forward-props.esm.js",
+  "typings": "dist/index.d.ts",
+  "author": "Jace Hensley <jacehensley@gmail.com>",
+  "license": "Apache-2.0",
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "npm run clean && tsdx build --tsconfig ./tsconfig.build.json",
+    "test": "tsdx test",
+    "lint": "tsdx lint",
+    "clean": "rimraf dist",
+    "prepare": "npm run build",
+    "prepublishOnly": "npm run test && npm run lint"
+  },
+  "dependencies": {
+    "@types/ramda": "^0.26.21",
+    "ramda": "^0.26.1",
+    "ts-toolbelt": "^3.8.63"
+  },
+  "peerDependencies": {
+    "react": "^16.0.0"
+  },
+  "devDependencies": {
+    "@types/jest": "^24.0.18",
+    "@types/react": "^16.9.2",
+    "@typescript-eslint/eslint-plugin": "^2.0.0",
+    "@typescript-eslint/parser": "^2.0.0",
+    "eslint": "^6.3.0",
+    "eslint-config-prettier": "^6.1.0",
+    "eslint-plugin-prettier": "^3.1.0",
+    "jest": "^24.9.0",
+    "react": "^16.9.0",
+    "react-dom": "^16.9.0",
+    "rimraf": "^3.0.0",
+    "tsdx": "^0.9.0",
+    "tslib": "^1.10.0",
+    "typescript": "^3.5.3"
+  },
+  "jest": {
+    "moduleFileExtensions": [
+      "ts",
+      "tsx",
+      "js",
+      "jsx",
+      "json",
+      "node"
+    ]
+  }
+}
