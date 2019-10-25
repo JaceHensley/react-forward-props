@@ -14,17 +14,13 @@
     "strictPropertyInitialization": true,
     "noImplicitThis": true,
     "alwaysStrict": true,
+    "noUnusedLocals": true,
     "noUnusedParameters": true,
     "noImplicitReturns": true,
     "noFallthroughCasesInSwitch": true,
     "moduleResolution": "node",
     "baseUrl": "./",
     "jsx": "react",
-    "esModuleInterop": true,
-
-    "forceConsistentCasingInFileNames": true,
-    "noUnusedLocals": true,
-    "keyofStringsOnly": true,
-    "skipLibCheck": true
+    "esModuleInterop": true
   }
 }

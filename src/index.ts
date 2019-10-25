@@ -1,6 +1,5 @@
 import React from 'react'
 import {O} from 'ts-toolbelt'
-import R from 'ramda'
 
 export type ComponentProps<K extends keyof JSX.IntrinsicElements, P extends object = {}> = O.Diff<JSX.IntrinsicElements[K], P> & P
 
@@ -15,4 +14,14 @@ export class Component<K extends keyof JSX.IntrinsicElements, P extends object =
   S
 > {}
 
-export const forwardProps = <P extends object = {}, S extends string = string>(props: P, ...rm: S[]) => R.omit(rm, props)
+export const forwardProps = <P extends {[key in S]: any}, S extends string>(props: any, ...rm: S[]): Omit<P, S> => {
+  const forwardedProps = {} as P
+  const rmObj = {} as {[key in S]: boolean}
+  rm.forEach(key => {
+    rmObj[key] = true
+  })
+  Object.keys(props).forEach(key => {
+    if (!rmObj[key as S]) forwardedProps[key as S] = props[key]
+  })
+  return forwardedProps
+}
