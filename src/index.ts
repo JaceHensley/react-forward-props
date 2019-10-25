@@ -14,7 +14,7 @@ export class Component<K extends keyof JSX.IntrinsicElements, P extends object =
   S
 > {}
 
-export const forwardProps = <P extends {[key in S]: any}, S extends string>(props: any, ...rm: S[]): Omit<P, S> => {
+export const forwardProps = <P extends {[key: string]: any}, S extends string>(props: any, ...rm: S[]): Omit<P, S> => {
   const forwardedProps = {} as P
   const rmObj = {} as {[key in S]: boolean}
   rm.forEach(key => {

@@ -1,6 +1,6 @@
 {
   "name": "react-forward-props",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "description": "Easily have your custom React components forward their props to a child",
   "repository": "https://github.com/jacehensley/react-forward-props",
   "main": "dist/index.js",
