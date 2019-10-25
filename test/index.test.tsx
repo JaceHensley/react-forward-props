@@ -2,6 +2,7 @@ import React from 'react'
 
 import {ComponentProps, FC, forwardRef, Component, forwardProps} from '../src/index'
 
+/* eslint-disable no-unused-expressions */
 describe('ComponentProps', () => {
   it('should allow not setting the second generic param', () => {
     ;({
@@ -33,6 +34,7 @@ describe('ComponentProps', () => {
     } as Combined)
   })
 })
+/* eslint-enable no-unused-expressions */
 
 describe('FC', () => {
   it('should allow not setting the second generic param', () => {
@@ -63,6 +65,7 @@ describe('FC', () => {
   })
 })
 
+/* eslint-disable no-unused-expressions */
 describe('forwardRef', () => {
   it('should allow not setting the second generic param', () => {
     forwardRef<'div'>((props, _) => {
@@ -96,6 +99,7 @@ describe('forwardRef', () => {
     })
   })
 })
+/* eslint-enable no-unused-expressions */
 
 describe('Component', () => {
   it('should allow not setting the second generic param', () => {
