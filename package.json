@@ -1,6 +1,6 @@
 {
   "name": "react-forward-props",
-  "version": "1.1.1",
+  "version": "1.1.2",
   "description": "Easily have your custom React components forward their props to a child",
   "repository": "https://github.com/jacehensley/react-forward-props",
   "main": "dist/index.js",
@@ -25,20 +25,19 @@
     "react": "^16.0.0"
   },
   "devDependencies": {
-    "@types/jest": "^24.0.19",
-    "@types/react": "^16.9.10",
-    "@typescript-eslint/eslint-plugin": "^2.5.0",
-    "@typescript-eslint/parser": "^2.5.0",
-    "babel-plugin-ramda": "^2.0.0",
-    "eslint": "^6.5.1",
-    "eslint-config-prettier": "^6.4.0",
+    "@types/jest": "^24.0.22",
+    "@types/react": "^16.9.11",
+    "@typescript-eslint/eslint-plugin": "^2.6.1",
+    "@typescript-eslint/parser": "^2.6.1",
+    "eslint": "^6.6.0",
+    "eslint-config-prettier": "^6.5.0",
     "eslint-plugin-prettier": "^3.1.1",
     "jest": "^24.9.0",
     "react": "^16.11.0",
     "react-dom": "^16.11.0",
-    "tsdx": "^0.10.5",
+    "tsdx": "^0.11.0",
     "tslib": "^1.10.0",
-    "typescript": "^3.6.4"
+    "typescript": "^3.7.2"
   },
   "jest": {
     "moduleFileExtensions": [
