@@ -1,16 +1,27 @@
+## 1.1.2
+
+### Bug Fixes
+
+- Fix return type of `forwardProps` to handle when no keys to remove are passed
+- Fix generic type of `ComponentProps`, `FC`, `forwardRef`, and `Component`
+
+### Misc
+
+- Update docs
+
 ## 1.1.1
 
-## Bug Fixes
+### Bug Fixes
 
 - Fix generic type of `forwardProps`
 
 ## 1.1.0
 
-## Improvements
+### Improvements
 
 - Remove `ramda` dependency
 
-## Misc
+### Misc
 
 - Bump dependency versions
 

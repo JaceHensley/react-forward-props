@@ -2,6 +2,16 @@
 
 Easily have your custom React components forward their props to a child
 
+<a href="https://npmjs.com/package/react-forward-props" target="_blank" rel="noopener noreferrer">
+  <img alt="" src="https://img.shields.io/npm/dm/react-forward-props.svg?style=flat-square" />
+</a>
+<a href="https://bundlephobia.com/result?p=react-forward-props@latest" target="_blank" rel="noopener noreferrer">
+  <img alt="" src="https://img.shields.io/bundlephobia/minzip/react-forward-props@latest?style=flat-square" />
+</a>
+<a href="https://github.com/jacehensley/react-forward-props" target="_blank" rel="noopener noreferrer">
+  <img alt="" src="https://img.shields.io/github/stars/jacehensley/react-forward-props.svg?style=flat-square&label=Star" />
+</a>
+
 - [React Forward Props](#react-forward-props)
   - [Installation](#installation)
   - [Usage](#usage)
@@ -12,7 +22,7 @@ Easily have your custom React components forward their props to a child
 ## Installation
 
 ```
-npm install --save react-forward-props
+npm install react-forward-props
 ```
 
 ## Usage
@@ -96,9 +106,22 @@ const Button: FC<'button', ButtonProps> = props =>(
   </button>
 )
 
-type LargeButtonProps = {}
+type DropdownButtonProps = ButtonProps & {
+  isOpen: boolean
+}
 
-const LargeButton: FC<'button', LargeButtonProps> = (
-  <Button {...forwardProps(props)} size="lg">{props.children}</Button>
+const DropdownButton: FC<'button', DropdownButtonProps> = props => (
+  <div className={clsx('dropdown-btn', {'dropdown-btn--open': props.isOpen}})>
+    <Button
+      {...forwardProps(props, 'isOpen')}
+      className={clsx('dropdown-btn__trigger', props.className)}
+    >
+      {props.children}
+    </Button>
+  </div>
 )
+
+<DropdownButton size="lg" className="my-dropdown-btn">
+  {/* DropdownMenu... */}
+</DropdownButton>
 ```
