@@ -16,6 +16,7 @@ Easily have your custom React components forward their props to a child
   - [Installation](#installation)
   - [Usage](#usage)
     - [Example](#example)
+    - [Omit Keys From The Base Attributes](#omit-keys-from-the-base-attributes)
   - [Reason](#reason)
   - [Forwarding To Custom Components](#forwarding-to-custom-components)
 
@@ -37,7 +38,8 @@ npm install react-forward-props
 ### Example
 
 ```tsx
-import {FC, forwardProps} from 'react-forward-props'
+import React from 'react'
+import {FC, forwardProps, ComponentProps} from 'react-forward-props'
 
 type MyCompProps = {
   myCustomProp: string
@@ -52,6 +54,34 @@ const MyComp1 = FC<'div', MyCompProps> = props => {
 const MyComp2 = FC<'div', MyCompProps> = props => {
   // Does not warn
   return <div {...forwardProps(props, 'myCustomProp', 'title')} />
+}
+
+// You can also use the `ComponentProps` type and use the standard React.FC(.Component/.forwardRef)
+
+type MyCompProps2 = ComponentProps<'div', {
+  myCustomProp: string
+  title: number // overriding the `title: string` type that comes with HTMLAttributes
+}>
+
+const MyComp3 = React.FC<MyCompProps2> = props => {
+  // Does not warn
+  return <div {...forwardProps(props, 'myCustomProp', 'title')} />
+}
+```
+
+### Omit Keys From The Base Attributes
+
+If you're component doesn't support all the attributes of the base HTML element then you can omit the keys with the third generic parameter:
+
+```tsx
+import {FC, forwardProps} from 'react-forward-props'
+
+type MyCompProps = {
+  to: string
+}
+
+const MyComp1 = FC<'a', MyCompProps, 'href'> = props => {
+  return <div {...forwardProps(props, 'to')} href={props.to} />
 }
 ```
 
@@ -108,6 +138,7 @@ const Button: FC<'button', ButtonProps> = props =>(
 
 type DropdownButtonProps = ButtonProps & {
   isOpen: boolean
+  displayValue: React.ReactNode
 }
 
 const DropdownButton: FC<'button', DropdownButtonProps> = props => (
@@ -116,8 +147,9 @@ const DropdownButton: FC<'button', DropdownButtonProps> = props => (
       {...forwardProps(props, 'isOpen')}
       className={clsx('dropdown-btn__trigger', props.className)}
     >
-      {props.children}
+      {props.displayValue}
     </Button>
+    {props.children}
   </div>
 )
 

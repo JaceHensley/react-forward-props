@@ -1,13 +1,16 @@
+/* eslint-disable no-new */
 import React from 'react'
 
-import {ComponentProps, FC, forwardRef, Component, forwardProps} from '../src/index'
+import { ComponentProps, FC, forwardRef, Component, forwardProps } from './index'
 
-/* eslint-disable no-unused-expressions */
 describe('ComponentProps', () => {
+  // eslint-disable-next-line @typescript-eslint/comma-dangle
+  const tester = <T,>(props: T) => props
+
   it('should allow not setting the second generic param', () => {
-    ;({
+    tester<ComponentProps<'div'>>({
       title: 'Title',
-    } as ComponentProps<'div'>)
+    })
   })
 
   it('should combine props and HTML attributes', () => {
@@ -17,10 +20,12 @@ describe('ComponentProps', () => {
     }
 
     type Combined = ComponentProps<'div', Props>
-    ;({
+
+    tester<Combined>({
       first: 'first',
-      title: 'Title',
-    } as Combined)
+      second: 'second',
+      title: 'title',
+    })
   })
 
   it('should combine accept given props type over the elements attributes if there is a conflicts', () => {
@@ -29,9 +34,34 @@ describe('ComponentProps', () => {
     }
 
     type Combined = ComponentProps<'div', Props>
-    ;({
+
+    tester<Combined>({
       title: 0,
-    } as Combined)
+    })
+  })
+
+  it('should combine props and HTML attributes but remove attributes in the thrid param', () => {
+    type Props = {
+      title: number
+    }
+
+    type Combined = ComponentProps<'div', Props, 'about'>
+
+    tester<Combined>({
+      title: 0,
+    })
+  })
+
+  it('should combine props and HTML attributes but remove attributes in the thrid param but not from the provided props', () => {
+    type Props = {
+      title: number
+    }
+
+    type Combined = ComponentProps<'div', Props, 'title'>
+
+    tester<Combined>({
+      title: 0,
+    })
   })
 })
 /* eslint-enable no-unused-expressions */
@@ -40,7 +70,7 @@ describe('FC', () => {
   it('should allow not setting the second generic param', () => {
     const Comp: FC<'div'> = () => <div />
 
-    Comp({title: 'string'})
+    Comp({ title: 'string' })
   })
 
   it('should combine props and HTML attributes', () => {
@@ -51,7 +81,7 @@ describe('FC', () => {
 
     const Comp: FC<'div', Props> = () => <div />
 
-    Comp({first: 'string', second: 'string', title: 'string'})
+    Comp({ first: 'string', second: 'string', title: 'string' })
   })
 
   it('should combine accept given props type over the elements attributes if there is a conflicts', () => {
@@ -61,7 +91,27 @@ describe('FC', () => {
 
     const Comp: FC<'div', Props> = () => <div />
 
-    Comp({title: 0})
+    Comp({ title: 0 })
+  })
+
+  it('should combine props and HTML attributes but remove attributes in the thrid param', () => {
+    type Props = {
+      title: number
+    }
+
+    const Comp: FC<'div', Props, 'about'> = () => <div />
+
+    Comp({ title: 0 })
+  })
+
+  it('should combine props and HTML attributes but remove attributes in the thrid param but not from the provided props', () => {
+    type Props = {
+      title: number
+    }
+
+    const Comp: FC<'div', Props, 'title'> = () => <div />
+
+    Comp({ title: 0 })
   })
 })
 
@@ -98,6 +148,28 @@ describe('forwardRef', () => {
       return <div />
     })
   })
+
+  it('should combine props and HTML attributes but remove attributes in the thrid param', () => {
+    type Props = {
+      title: number
+    }
+
+    forwardRef<'div', Props, 'about'>((props, _) => {
+      props.title as number
+      return <div />
+    })
+  })
+
+  it('should combine props and HTML attributes but remove attributes in the thrid param but not from the provided props', () => {
+    type Props = {
+      title: number
+    }
+
+    forwardRef<'div', Props, 'title'>((props, _) => {
+      props.title as number
+      return <div />
+    })
+  })
 })
 /* eslint-enable no-unused-expressions */
 
@@ -109,7 +181,7 @@ describe('Component', () => {
       }
     }
 
-    new Comp({title: 'title'})
+    new Comp({ title: 'title' })
   })
 
   it('should combine props and HTML attributes', () => {
@@ -124,7 +196,7 @@ describe('Component', () => {
       }
     }
 
-    new Comp({first: 'string', second: 'string', title: 'title'})
+    new Comp({ first: 'string', second: 'string', title: 'title' })
   })
 
   it('should combine accept given props type over the elements attributes if there is a conflicts', () => {
@@ -138,7 +210,35 @@ describe('Component', () => {
       }
     }
 
-    new Comp({title: 0})
+    new Comp({ title: 0 })
+  })
+
+  it('should combine props and HTML attributes but remove attributes in the thrid param', () => {
+    type Props = {
+      title: number
+    }
+
+    class Comp extends Component<'div', Props, 'about'> {
+      render() {
+        return <div />
+      }
+    }
+
+    new Comp({ title: 0 })
+  })
+
+  it('should combine props and HTML attributes but remove attributes in the thrid param but not from the provided props', () => {
+    type Props = {
+      title: number
+    }
+
+    class Comp extends Component<'div', Props, 'title'> {
+      render() {
+        return <div />
+      }
+    }
+
+    new Comp({ title: 0 })
   })
 })
 
@@ -155,6 +255,6 @@ describe('forwardProps', () => {
 
     const cleanedProps: Omit<Props, 'first'> = forwardProps(props, 'first')
 
-    expect(cleanedProps).toMatchObject({second: 'value'})
+    expect(cleanedProps).toMatchObject({ second: 'value' })
   })
 })
